@@ -56,11 +56,21 @@ def chat(update: Update, _: CallbackContext) -> None:
     user_message = update.message.text
 
     gpt_response = ask_gpt_response("You: " + user_message )
-     # add ChatGPT's response to the history
-    history.append("AI: "+gpt_response+"\n")
+    
+    # remove "AI:" from response 
+    reply=''
+    if ":" in gpt_response[:7]:
+        n = gpt_response.index(':')   
+        reply = gpt_response[n+1:]
+    else:
+        reply = gpt_response
+    
+    # add ChatGPT's response to the history
+    history.append("AI: "+reply+"\n")
     # Send the response back to the user
-    update.message.reply_text(gpt_response)
-    # print(gpt_response)
+
+    update.message.reply_text(reply)
+     
 
 
 def main() -> None:
