@@ -40,7 +40,9 @@ def ask_gpt_response(prompt):
         # return the response
         return message
     except OpenAIError as err:
-        logging.error(f'error occure :{err}')
+        message = f'error occure :{err}'
+
+        return message
 
 
 def hist(update: Update, _: CallbackContext) -> None:
